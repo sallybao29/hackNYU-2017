@@ -33,10 +33,11 @@ def setup ():
     paper = TrashBin (300, 500, (0, 0, 255), "Paper")
     beverage = TrashBin (500, 500, (0, 153, 0), "Beverage")
     bin = [landfill, paper, beverage]
-    img = loadImage("green-recycling-icon.jpg")
-    cycle = 0
+    img = loadImage ("green-recycling-icon.jpg")
     make_trash()
-    
+    cycle = 0
+
+
 def mouseClicked():
     #mouse click event
     #figure out which trash got clicked and set current_trash to it
