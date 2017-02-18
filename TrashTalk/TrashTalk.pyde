@@ -27,11 +27,13 @@ def make_trash():
 def setup ():
     global bin
     global cycle
+    global img
     size (700, 700)
     landfill = TrashBin (100, 500, (153, 76, 0), "Landfill") 
     paper = TrashBin (300, 500, (0, 0, 255), "Paper")
     beverage = TrashBin (500, 500, (0, 153, 0), "Beverage")
     bin = [landfill, paper, beverage]
+    img = loadImage("green-recycling-icon.jpg")
     cycle = 0
     make_trash()
     
@@ -41,18 +43,21 @@ def mouseClicked():
     #if current_trash is not None and another trash is clicked, set current_trash
     #to the clicked trash
     #if a trashBin is clicked, and current_trash is not None, got to recycle 
+    pass
     
 def recycle(trashBin, current_trash):
     #check if current_trash is compatible with trashBin
     #if so, remove current_trash from trash (array)
     #add points
     #otherwise, pile it on the trash stack
+    pass
                                     
 
 def draw ():
     global bin
     global cycle
-    background (255)
+    global img
+    background (img)
     for stuff in bin:
         stuff.draw ()
     cycle += 1
