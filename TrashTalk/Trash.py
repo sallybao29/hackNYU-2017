@@ -7,15 +7,37 @@ class Trash(object):
         self._label = label
         self._color = col
         self._dy = 1
+        self._visible = True
      
     def get_height(self):
         return self._height
     
+    def get_width (self):
+        return self._width
+
+    def get_x (self):
+        return self._x
+
     def get_y(self):
         return self._y
     
-    def move(self):
+    def get_visible(self):
+        return self._visible
+    
+    def get_label(self):
+        return self._label
+    
+    def set_x (self, x):
+        self._x = x
+        
+    def set_y (self, y):
+        self._y = y
+
+    
+    def move(self, h):
         self._y += self._dy
+        if self._y + self._height > h:
+            self._visible = False
         
     def draw(self):
         fill(*self._color)
@@ -24,10 +46,11 @@ class Trash(object):
         textAlign(CENTER, CENTER)
         textLeading(15)
         fill(255)
-        text(self._label, self._x + self._width // 2, self._y + self._height // 2)
+        text(self._label, self._x + self._width / 2, self._y + self._height / 2)
         
-    def clicked(self):
-        pass
+    def contains (self, x, y):
+        return x >= self._x and x <= self._x + self._width and y >= self._y and y <= self._y + self._height
+
         
 class Landfill(Trash):
     def __init__(self, x, y, label):

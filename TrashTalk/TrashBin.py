@@ -1,9 +1,23 @@
 class TrashBin:
-    def __init__ (self, x, y, colortuple, label):
+    def __init__ (self, x, y, colortuple, label, type):
         self._x = x
         self._y = y
         self._colortuple = colortuple
+        self._type = type 
         self._label = label
+        
+    def get_type(self):
+        return self._type
+        
+    def intersects(self, trash):
+        tw = th = 100
+        x = trash.get_x()
+        y = trash.get_y()
+        w = trash.get_width()
+        h = trash.get_height()
+        h_overlaps = (x + w > self._x) and (x < self._x + tw)            
+        v_overlaps = (self._y < y + h) and (self._y + th > y)
+        return h_overlaps and v_overlaps
        
     def draw(self):
         fill (*self._colortuple)
@@ -15,12 +29,3 @@ class TrashBin:
         text (self._label, self._x + 50, self._y + 50)
     
 
-def setup ():
-    global landfill
-    size (700, 700) 
-    landfill = TrashBin (400, 100, (255,248,220), "landfill")
-    
-def draw ():
-    global landfill
-    background ( 255, 255 , 255)
-    landfill.draw ()
