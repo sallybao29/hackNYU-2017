@@ -38,13 +38,17 @@ def setup ():
     cycle = 0
 
 
-def mouseClicked():
-    #mouse click event
-    #figure out which trash got clicked and set current_trash to it
-    #if current_trash is not None and another trash is clicked, set current_trash
-    #to the clicked trash
-    #if a trashBin is clicked, and current_trash is not None, got to recycle 
+def mouseDragged():
+    #find the trash being dragged 
+    #set its x and y to mouseX, mouseY instead of doing regular move
+    #if player drags above previous Y cor, break control
     pass
+    
+def mouseReleased():
+    #check that thing being dragged is trash
+    #find which trashBin mouse was released on
+    #if no trashBin, let trash fall normally
+    #call recycle
     
 def recycle(trashBin, current_trash):
     #check if current_trash is compatible with trashBin
