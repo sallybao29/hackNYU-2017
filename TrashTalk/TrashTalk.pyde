@@ -5,20 +5,21 @@ import random
 LANDFILL = 0
 PAPER = 1
 BEVERAGE = 2
+
+trash = []
+labels = {LANDFILL: ["Styro\nfoam", "Pencil", "Diaper", "Napkin"],
+          PAPER: ["News\npaper", "Soft\nBook", "Pizza\nbox", "Egg\ncarton", "Paper\nBag"],
+          BEVERAGE: ["Carton", "Bottle", "Foil", "Glass\nBottle", "Jar", "Yogurt\ncup", "Metal\ncan"]}
+
+global overTrash, locked, current_trash
 overTrash = False
 locked = False
-trash = []
-labels = {LANDFILL: ["Styro\nfoam", "Pencil", "Diaper"],
-          PAPER: ["News\npaper", "Book", "Pizza\nbox", "Egg\ncarton"],
-          BEVERAGE: ["Carton", "Bottle", "Foil", "Glass\nBottle", "Jar"]}
-
-global current_trash 
 current_trash = None
 
 def make_trash():
     k = random.choice(labels.keys())
     label = random.choice(labels[k])
-    x = random.randint(100, 600) % width
+    x = random.randint(100, 600) 
     if k == LANDFILL:
         trash.append(Landfill(x, 0, label))
     elif k == PAPER:
@@ -27,56 +28,75 @@ def make_trash():
         trash.append(Beverage(x, 0, label))
   
 def setup ():
-    global bin
     global cycle
     global img
-    tx = width/2.0;
-    ty = height/2.0;
+    global bin
     size (700, 700)
-    landfill = TrashBin (100, 500, (153, 76, 0), "Landfill") 
-    paper = TrashBin (300, 500, (0, 0, 255), "Paper")
-    beverage = TrashBin (500, 500, (0, 153, 0), "Beverage")
+    landfill = TrashBin (100, 500, (153, 76, 0), "Landfill", Landfill) 
+    paper = TrashBin (300, 500, (0, 0, 255), "Paper", Paper)
+    beverage = TrashBin (500, 500, (0, 153, 0), "Beverage", Beverage)
     bin = [landfill, paper, beverage]
     img = loadImage ("green-recycling-icon.jpg")
     make_trash()
     cycle = 0
 
 def mousePressed ():
+    global overTrash
+    global locked
     if overTrash is not None:
         locked = True
     else:
         locked = False
     
-        
-
 def mouseDragged():
-    #find the trash being dragged 
-    #set its x and y to mouseX, mouseY instead of doing regular move
-    #if player drags above previous Y cor, break control
-    if not locked:
-        current_trash.set_x (mouseX-current_trash.get_width()/2)
-        current_trash.set_y (mouseY-current_trash.get_height()/2)
-        
+    global locked
+    if locked:
+        if mouseY >= current_trash.get_y() + current_trash.get_width ()/2:
+            current_trash.set_x (mouseX-current_trash.get_width()/2)
+            current_trash.set_y (mouseY-current_trash.get_height()/2)
     
 def mouseReleased():
-    #check that thing being dragged is trash
-    #find which trashBin mouse was released on
-    #if no trashBin, let trash fall normally
-    #call recycle
-    pass
+    global bin
+    global current_trash
+    global locked
+    target = None
+    if current_trash and locked:
+        for b in bin:
+            if b.intersects(current_trash):
+                target = b
+                break
+        if target:
+            recycle(b, current_trash)
+    current_trash = None
+    locked = False
+            
     
-def recycle(trashBin, current_trash):
+def recycle(trashBin, curr):
     #check if current_trash is compatible with trashBin
     #if so, remove current_trash from trash (array)
     #add points
     #otherwise, pile it on the trash stack
-    pass
-                                    
+    if isinstance(curr, trashBin.get_type()):
+        print "removed " + curr.get_label()
+        rem = trash.remove(curr)
+        
+   
+    
+def draw_trash(): 
+    i = 0
+    while i < len(trash):
+        trash[i].move(height)
+        trash[i].draw()
+        if not trash[i].get_visible():
+            rem = trash.pop(i)
+            #print "removed " + rem._label
+        else:
+            i += 1                               
 
 def draw ():
-    global bin
     global cycle
     global img
+    global bin
     global current_trash
     background (img)
     for stuff in bin:
@@ -85,13 +105,8 @@ def draw ():
     if cycle % 50 == 0:
         make_trash()
 
-    for t in trash:
-        t.move()
-        t.draw()
-    if trash[len(trash)-1].get_y() + trash[len(trash)-1].get_height() > height:
-        trash.pop()
-        
-    #if current_trash is None:
+    draw_trash()
+
     for k in trash:
         #print (k.get_x ())
         if k.contains(mouseX, mouseY):
@@ -101,21 +116,3 @@ def draw ():
                 fill(0)
             else:
                 overTrash = False
-    """       
-    else:
-        if current_trash.contains(mouseX, mouseY):
-            current_trash.get_label()
-            overTrash = True    
-            
-        if not locked:
-            fill(0)
-        else:
-            overTrash = False
-    """
-    
-
-   
-      
-    
-    
-        
