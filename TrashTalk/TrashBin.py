@@ -10,8 +10,9 @@ class TrashBin:
         stroke (0, 0, 0) 
         rect (self._x, self._y, 100, 100) 
         fill ( 255, 255, 255) 
+        textAlign (CENTER, CENTER)
         textSize (15)
-        text (self._label, self._x + 25, self._y + 25)
+        text (self._label, self._x + 50, self._y + 50)
     
 
 def setup ():

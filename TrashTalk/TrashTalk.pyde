@@ -7,9 +7,9 @@ PAPER = 1
 BEVERAGE = 2
 
 trash = []
-labels = {LANDFILL: ["Styrofoam cup", "Pencil", "Diaper"],
-          PAPER: ["Newspaper", "Book", "Pizza box", "Egg carton"],
-          BEVERAGE: ["Carton", "Bottle", "Foil", "Glass Bottle", "Jar"]}
+labels = {LANDFILL: ["Styro\nfoam", "Pencil", "Diaper"],
+          PAPER: ["News\npaper", "Book", "Pizza\nbox", "Egg\ncarton"],
+          BEVERAGE: ["Carton", "Bottle", "Foil", "Glass\nBottle", "Jar"]}
 
 current_trash = None
 

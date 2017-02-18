@@ -3,7 +3,7 @@ class Trash(object):
         self._x = x
         self._y = y
         self._width = 70
-        self._height = 30
+        self._height = 50
         self._label = label
         self._color = col
         self._dy = 1
@@ -21,8 +21,10 @@ class Trash(object):
         fill(*self._color)
         rect(self._x, self._y, self._width, self._height, 10)
         textSize(20)
-        fill(50)
-        text(self._label, self._x, self._y + self._height // 2)
+        textAlign(CENTER, CENTER)
+        textLeading(15)
+        fill(255)
+        text(self._label, self._x + self._width // 2, self._y + self._height // 2)
         
     def clicked(self):
         pass
