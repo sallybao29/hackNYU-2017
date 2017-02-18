@@ -20,3 +20,6 @@ class Trash:
     def clicked(self):
         pass
         
+class Landfill(Trash):
+class Paper(Trash):
+class Beverage(Trash):
