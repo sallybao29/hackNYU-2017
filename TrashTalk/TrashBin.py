@@ -14,13 +14,3 @@ class TrashBin:
         textSize (15)
         text (self._label, self._x + 50, self._y + 50)
     
-
-def setup ():
-    global landfill
-    size (700, 700) 
-    landfill = TrashBin (400, 100, (255,248,220), "landfill")
-    
-def draw ():
-    global landfill
-    background ( 255, 255 , 255)
-    landfill.draw ()

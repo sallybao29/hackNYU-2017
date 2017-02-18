@@ -14,6 +14,21 @@ class Trash(object):
     def get_y(self):
         return self._y
     
+    def get_x (self):
+        return self._x
+    
+    def get_width (self):
+        return self._width
+    
+    def set_x (self, x):
+        self._x = x
+        
+    def set_y (self, y):
+        self._y = y
+        
+    def get_label (self):
+        print (self._label) 
+    
     def move(self):
         self._y += self._dy
         
@@ -26,8 +41,8 @@ class Trash(object):
         fill(255)
         text(self._label, self._x + self._width // 2, self._y + self._height // 2)
         
-    def clicked(self):
-        pass
+    def contains (self, x, y):
+        return x >= self._x and x <= self._x + self._width and y >= self._y and y <= self._y + self._height
         
 class Landfill(Trash):
     def __init__(self, x, y, label):
